@@ -96,7 +96,17 @@ jobs:
           DB_USER: postgres
           DB_PASSWORD: postgres
           RAILS_ENV: test
-        run: bundle exec rake db:prepare
+        run: |
+          while ! pg_isready -h localhost -p 5432 -U postgres
+          do
+            echo "Waiting for postgres..."
+            sleep 2
+          done
+          
+          bundle exec rails db:create
+          
+          bundle exec rails db:schema:load
+          bundle exec rails db:migrate
 
       - name: Run tests
         env:
