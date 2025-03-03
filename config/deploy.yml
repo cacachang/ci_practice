@@ -2,12 +2,12 @@
 service: kamal_demo
 
 # Name of the container image.
-image: your-user/kamal_demo
+image: ningchang1995/kamal_demo
 
 # Deploy to these servers.
 servers:
   web:
-    - 192.168.0.1
+    - 128.199.79.130
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -35,9 +35,11 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
+    - POSTGRESQL_ROOT_PASSWORD
   clear:
     # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
+    DB_HOST: 192.168.0.2
     SOLID_QUEUE_IN_PUMA: true
 
     # Set number of processes dedicated to Solid Queue (default: 1)
@@ -92,22 +94,22 @@ builder:
 #   user: app
 
 # Use accessory services (secrets come from .kamal/secrets).
-# accessories:
-#   db:
-#     image: mysql:8.0
-#     host: 192.168.0.2
-#     # Change to 3306 to expose port to the world instead of just local network.
-#     port: "127.0.0.1:3306:3306"
-#     env:
-#       clear:
-#         MYSQL_ROOT_HOST: '%'
-#       secret:
-#         - MYSQL_ROOT_PASSWORD
-#     files:
-#       - config/mysql/production.cnf:/etc/mysql/my.cnf
-#       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
-#     directories:
-#       - data:/var/lib/mysql
+accessories:
+  db:
+    image: postgres:13
+    host: 128.199.79.130
+    # Change to 3306 to expose port to the world instead of just local network.
+    port: 5432
+    env:
+      clear:
+        POSTGRESQL_ROOT_PASSWORD: '%'
+      secret:
+        - POSTGRESQL_ROOT_PASSWORD
+    files:
+      - config/postgres/production.cnf:/etc/postgres/my.cnf
+      - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
+    directories:
+      - data:/var/lib/postgres
 #   redis:
 #     image: redis:7.0
 #     host: 192.168.0.2
