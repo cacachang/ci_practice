@@ -1,0 +1,18 @@
+<div id="<%= dom_id dynamic_column %>" class="my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Type:</strong>
+    <%= dynamic_column.type %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Required:</strong>
+    <%= dynamic_column.required? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Default value:</strong>
+    <%= dynamic_column.default_value %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Dynamic form:</strong>
+    <%= dynamic_column.dynamic_form_id %>
+  </div>
+</div>

@@ -10,9 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_27_034158) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_06_041851) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "dynamic_columns", force: :cascade do |t|
+    t.string "column_type"
+    t.boolean "required"
+    t.string "default_value"
+    t.bigint "dynamic_form_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dynamic_form_id"], name: "index_dynamic_columns_on_dynamic_form_id"
+  end
+
+  create_table "dynamic_forms", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.json "fields"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "dynamic_values", force: :cascade do |t|
+    t.bigint "dynamic_form_id", null: false
+    t.json "field_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dynamic_form_id"], name: "index_dynamic_values_on_dynamic_form_id"
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
@@ -20,4 +46,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_034158) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "dynamic_columns", "dynamic_forms"
+  add_foreign_key "dynamic_values", "dynamic_forms"
 end

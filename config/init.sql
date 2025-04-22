@@ -1,0 +1,1 @@
+CREATE DATABASE kamal_demo_development;

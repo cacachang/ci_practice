@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dynamic_form: one
+  field_value: 
+
+two:
+  dynamic_form: two
+  field_value: 

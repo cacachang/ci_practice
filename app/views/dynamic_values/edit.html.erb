@@ -1,0 +1,10 @@
+<% content_for :title, "Editing dynamic value" %>
+
+<div class="md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl">Editing dynamic value</h1>
+
+  <%= render "form", dynamic_value: @dynamic_value %>
+
+  <%= link_to "Show this dynamic value", @dynamic_value, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%= link_to "Back to dynamic values", dynamic_values_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+</div>

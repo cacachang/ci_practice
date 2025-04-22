@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :dynamic_columns
+  resources :dynamic_values
+  resources :dynamic_forms
   resources :posts
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
